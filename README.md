@@ -48,18 +48,71 @@ int main(){
 
 導出は正直理解できないところがあったけど最終的な答えである更新式さえ分かればなんとかなりそう．
 
-クラス$\omega_i$の確率密度関数
+クラス
+
+$\omega_i$
+
+の確率密度関数
+
 $p\left(\boldsymbol{x_k} | \omega_{i}; \boldsymbol{\mu_i},\boldsymbol{\Sigma_i}\right) = \frac{1}{(2\pi)^{d/2}|\boldsymbol{\Sigma_i}|^{1/2}}\exp\left(-\frac{1}{2}(\boldsymbol{x_k}-\boldsymbol{\mu_i})^{\mathrm{T}}\boldsymbol{\Sigma^{-1}}(\boldsymbol{x_k}-\boldsymbol{\mu_i})\right)$
 
-###EMアルゴリズム
-Step1: 事前確率$\pi_i$，平均ベクトル$\boldsymbol{\mu_i}$，分散共分散行列$\boldsymbol{\Sigma_i}$の初期値を与える．
-Step2: $P\left(\omega_i|\boldsymbol{x_k};\boldsymbol{\mu_i},\boldsymbol{\Sigma_i}\right)$を求める．
- 　$P\left(\omega_i|\boldsymbol{x_k};\boldsymbol{\mu_i},\boldsymbol{\Sigma_i}\right)=\frac{\pi_i・p\left(\boldsymbol{x_k} | \omega_{i}; \boldsymbol{\mu_i},\boldsymbol{\Sigma_i}\right)}{\sum_{j=0}^C \pi_j・p\left(\boldsymbol{x_k} | \omega_{j}; \boldsymbol{\mu_j},\boldsymbol{\Sigma_j}\right)}$
-step3: $\pi_i$，$\boldsymbol{\mu_i}$，$\boldsymbol{\Sigma_i}$を更新し，新しい$\hat{\pi_i}$，$\hat{\boldsymbol{\mu_i}}$，$\hat{\boldsymbol{\Sigma_i}}$を求める．
- 　$\hat{\pi_i}=\frac{\sum_{k=1}^N P(\omega_i|\boldsymbol{x_k};\boldsymbol{\mu_i},\boldsymbol{\Sigma_i})}{N}$
- 　$\hat{\boldsymbol{\mu_i}}=\frac{\sum_{k=1}^N P(\omega_i|\boldsymbol{x_k};\boldsymbol{\mu_i},\boldsymbol{\Sigma_i})\boldsymbol{x_k}}{\sum_{k=1}^NP(\omega_i|\boldsymbol{x_k};\boldsymbol{\mu_i},\boldsymbol{\Sigma_i})}$
- 　$\hat{\boldsymbol{\Sigma_i}}=\frac{\sum_{k=1}^N P(\omega_i|\boldsymbol{x_k};\boldsymbol{\mu_i},\boldsymbol{\Sigma_i})(\boldsymbol{x_k}-\boldsymbol{\mu_i})(\boldsymbol{x_k}-\boldsymbol{\mu_i})^{\mathrm{T}}}{\sum_{k=1}^N P(\omega_i|\boldsymbol{x_k};\boldsymbol{\mu_i},\boldsymbol{\Sigma_i})}$
-Step4: ここで$\pi_i=\hat{\pi_i}$，$\boldsymbol{\mu_i}=\hat{\boldsymbol{\mu_i}}$，$\boldsymbol{\Sigma_i}=\hat{\boldsymbol{\Sigma_i}}$と設定する．対数尤度$\log{p(\boldsymbol{x};\boldsymbol{\mu},\boldsymbol{\Sigma})}$を求め，増分が設定した閾値以下なら終了，そうでなければStep2へ戻る．
+### EMアルゴリズム
+
+Step1: 事前確率
+
+$\pi_i$，
+
+平均ベクトル
+
+$\boldsymbol{\mu_i}$，
+
+分散共分散行列
+
+$\boldsymbol{\Sigma_i}$
+
+の初期値を与える．
+
+Step2:
+
+$P\left(\omega_i|\boldsymbol{x_k};\boldsymbol{\mu_i},\boldsymbol{\Sigma_i}\right)$
+
+を求める．
+
+$P\left(\omega_i|\boldsymbol{x_k};\boldsymbol{\mu_i},\boldsymbol{\Sigma_i}\right)=\frac{\pi_i・p\left(\boldsymbol{x_k} | \omega_{i}; \boldsymbol{\mu_i},\boldsymbol{\Sigma_i}\right)}{\sum_{j=0}^C \pi_j・p\left(\boldsymbol{x_k} | \omega_{j}; \boldsymbol{\mu_j},\boldsymbol{\Sigma_j}\right)}$
+
+step3:
+
+$\pi_i$，$\boldsymbol{\mu_i}$，$\boldsymbol{\Sigma_i}$
+
+を更新し，新しい
+
+$\hat{\pi_i}$，
+
+$\hat{\boldsymbol{\mu_i}}$，
+
+$\hat{\boldsymbol{\Sigma_i}}$
+
+を求める．
+
+$\hat{\pi_i}=\frac{\sum_{k=1}^N P(\omega_i|\boldsymbol{x_k};\boldsymbol{\mu_i},\boldsymbol{\Sigma_i})}{N}$
+
+$\hat{\boldsymbol{\mu_i}}=\frac{\sum_{k=1}^N P(\omega_i|\boldsymbol{x_k};\boldsymbol{\mu_i},\boldsymbol{\Sigma_i})\boldsymbol{x_k}}{\sum_{k=1}^NP(\omega_i|\boldsymbol{x_k};\boldsymbol{\mu_i},\boldsymbol{\Sigma_i})}$
+
+$\hat{\boldsymbol{\Sigma_i}}=\frac{\sum_{k=1}^N P(\omega_i|\boldsymbol{x_k};\boldsymbol{\mu_i},\boldsymbol{\Sigma_i})(\boldsymbol{x_k}-\boldsymbol{\mu_i})(\boldsymbol{x_k}-\boldsymbol{\mu_i})^{\mathrm{T}}}{\sum_{k=1}^N P(\omega_i|\boldsymbol{x_k};\boldsymbol{\mu_i},\boldsymbol{\Sigma_i})}$
+
+Step4:
+
+ここで$\pi_i=\hat{\pi_i}$，
+
+$\boldsymbol{\mu_i}=\hat{\boldsymbol{\mu_i}}$，
+
+$\boldsymbol{\Sigma_i}=\hat{\boldsymbol{\Sigma_i}}$
+
+と設定する．対数尤度
+
+$\log{p(\boldsymbol{x};\boldsymbol{\mu},\boldsymbol{\Sigma})}$
+
+を求め，増分が設定した閾値以下なら終了，そうでなければStep2へ戻る．
 
 ### コード
 
