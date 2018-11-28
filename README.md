@@ -51,7 +51,7 @@ int main(){
 
 クラス
 
-$\omega_i$
+$$\omega_i$$
 
 の確率密度関数
 
